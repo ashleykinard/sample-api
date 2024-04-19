@@ -31,38 +31,12 @@
     }
   ],
   "paths": {
-    "/license/{accountId}": {
-      "post": {
-        "summary": "Add a license to an account",
-        "description": "Adds a new product license to the given account ID.",
-        "operationId": "addAccountLicense",
-        "tags": [
-          "Accounts",
-          "Product Licenses"
-        ],
-        "requestBody": null,
-        "responses": {
-          "200": {
-            "$ref": "#/components/responses/addLicense"
-          },
-          "400": {
-            "description": "Invalid input parameter."
-          }
-        }
-      },
-      "parameters": [
-        {
-          "$ref": "#/components/parameters/accountId"
-        }
-      ]
-    },
     "/license/{accountId}/{licenseId}": {
       "get": {
         "summary": "Get an account's license",
         "description": "Returns an account's product license information.",
         "operationId": "getAccountLicense",
         "tags": [
-          "Accounts",
           "Product Licenses"
         ],
         "responses": {
@@ -74,18 +48,21 @@
           }
         }
       },
-      "put": {
-        "summary": "Update an account's license",
-        "description": "Updates the status of an account's license.",
-        "operationId": "updateAccountLicense",
+      "delete": {
+        "summary": "Remove an account's license",
+        "description": "Removes a product license from the given user's account ID.",
+        "operationId": "removeAccountLicense",
         "tags": [
-          "Accounts",
           "Product Licenses"
         ],
-        "requestBody": null,
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/licenseNotes"
+          }
+        ],
         "responses": {
           "200": {
-            "$ref": "#/components/responses/updateLicense"
+            "$ref": "#/components/responses/removeLicense"
           },
           "400": {
             "description": "Invalid input parameter."
@@ -131,56 +108,18 @@
           "format": "uid",
           "example": "7d56bd9d-a642-4fee-9700-0c5c60c98e26"
         }
+      },
+      "licenseNotes": {
+        "in": "query",
+        "name": "notes",
+        "description": "Internal notes about the license.",
+        "schema": {
+          "type": "string",
+          "example": "License removed at customer request. See ticket ABCDEFG123 for details."
+        }
       }
     },
     "schemas": {
-      "modifyAccountLicense": {
-        "type": "object",
-        "description": "Information about the account license operation.",
-        "properties": {
-          "status": {
-            "type": "string",
-            "description": "The license operation's status:\n- `added` — The license was added to the account.\n- `removed` — The license was removed from the account.\n- `transferred` — The license was transferred to the account.\n",
-            "enum": [
-              "added",
-              "removed",
-              "transferred"
-            ],
-            "example": "added"
-          },
-          "message": {
-            "type": "string",
-            "description": "The operation's message.",
-            "example": "License '7d56bd9d-a642-4fee-9700-0c5c60c98e26' ('personal') added to account 89021278386"
-          },
-          "license": {
-            "type": "object",
-            "description": "Information about the license.",
-            "properties": {
-              "id": {
-                "type": "string",
-                "description": "The license's ID.",
-                "example": "7d56bd9d-a642-4fee-9700-0c5c60c98e26"
-              },
-              "type": {
-                "type": "string",
-                "description": "The type of license:\n- `personal` — A personal account license.\n- `corporate` — A corporate account license.\n- `trial` — A trial account license.\n",
-                "enum": [
-                  "personal",
-                  "corporate",
-                  "trial"
-                ],
-                "example": "personal"
-              },
-              "accountId": {
-                "type": "integer",
-                "description": "The account's ID.",
-                "example": 89021278386
-              }
-            }
-          }
-        }
-      },
       "getLicense": {
         "type": "object",
         "properties": {
@@ -222,28 +161,40 @@
             }
           }
         }
-      }
-    },
-    "responses": {
-      "addLicense": {
-        "description": "License Added",
-        "content": {
-          "application/json": {
-            "schema": {
-              "$ref": "#/components/schemas/modifyAccountLicense"
-            },
-            "example": {
-              "status": "added",
-              "message": "License '7d56bd9d-a642-4fee-9700-0c5c60c98e26' ('personal') added to account 89021278386",
-              "license": {
-                "id": "7d56bd9d-a642-4fee-9700-0c5c60c98e26",
-                "type": "personal",
-                "accountId": 89021278386
+      },
+      "removeLicense": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "description": "The results of the license removal.",
+            "example": "Removed license '7d56bd9d-a642-4fee-9700-0c5c60c98e26' from account 89021278386"
+          },
+          "license": {
+            "type": "object",
+            "description": "Information about the license.",
+            "properties": {
+              "id": {
+                "type": "string",
+                "description": "The license's ID.",
+                "example": "7d56bd9d-a642-4fee-9700-0c5c60c98e26"
+              },
+              "type": {
+                "type": "string",
+                "description": "The type of license.",
+                "example": "personal"
+              },
+              "accountId": {
+                "type": "integer",
+                "description": "The account ID the license was removed from.",
+                "example": 89021278386
               }
             }
           }
         }
-      },
+      }
+    },
+    "responses": {
       "getAccountLicense": {
         "description": "Successful Response",
         "content": {
@@ -254,15 +205,14 @@
           }
         }
       },
-      "updateLicense": {
+      "removeLicense": {
         "description": "License Removed",
         "content": {
           "application/json": {
             "schema": {
-              "$ref": "#/components/schemas/modifyAccountLicense"
+              "$ref": "#/components/schemas/removeLicense"
             },
             "example": {
-              "status": "removed",
               "message": "Removed license '7d56bd9d-a642-4fee-9700-0c5c60c98e26' from account 89021278386",
               "license": {
                 "id": "7d56bd9d-a642-4fee-9700-0c5c60c98e26",

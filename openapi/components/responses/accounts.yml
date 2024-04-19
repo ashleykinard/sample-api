@@ -1,31 +1,34 @@
-addLicense:
-  description: License Added
-  content:
-    application/json:
-      schema:
-        $ref: ../schemas/licenses.yml#/modifyAccountLicense
-      example:
-        status: success
-        message: License '7d56bd9d-a642-4fee-9700-0c5c60c98e26' ('personal') added to account 89021278386
-        license:
-          id: 7d56bd9d-a642-4fee-9700-0c5c60c98e26
-          type: personal
-          accountId: 89021278386
+# Licenses
 
 getAccountLicense:
   description: Successful Response
   content:
     application/json:
       schema:
-        $ref: ../schemas/licenses.yml#/getLicense
+        $ref: ../schemas/accounts.yml#/getAccountLicense
 
-removeLicense:
+addAccountLicense:
+  description: License Added
+  content:
+    application/json:
+      schema:
+        $ref: ../schemas/accounts.yml#/modifyAccountLicense
+      example:
+        status: added
+        message: License '7d56bd9d-a642-4fee-9700-0c5c60c98e26' ('personal') added to account 89021278386
+        license:
+          id: 7d56bd9d-a642-4fee-9700-0c5c60c98e26
+          type: personal
+          accountId: 89021278386
+
+updateAccountLicense:
   description: License Removed
   content:
     application/json:
       schema:
-        $ref: ../schemas/licenses.yml#/removeLicense
+        $ref: ../schemas/accounts.yml#/modifyAccountLicense
       example:
+        status: removed
         message: Removed license '7d56bd9d-a642-4fee-9700-0c5c60c98e26' from account 89021278386
         license:
           id: 7d56bd9d-a642-4fee-9700-0c5c60c98e26

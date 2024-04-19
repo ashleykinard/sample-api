@@ -1,0 +1,89 @@
+# Licenses
+
+getAccountLicense:
+  type: object
+  properties:
+    data:
+      type: object
+      properties:
+        username:
+          type: string
+          format: username
+          description: The account's username.
+          example: example.user
+        accountId:
+          type: integer
+          description: The account's ID.
+          example: 89021278386
+        id:
+          type: string
+          format: uid
+          description: The account's license ID.
+          example: 7d56bd9d-a642-4fee-9700-0c5c60c98e26
+        type:
+          type: string
+          description: |
+            The type of license:
+            - `personal` — A personal account license.
+            - `corporate` — A corporate account license.
+            - `trial` — A trial account license.
+          enum:
+            - personal
+            - corporate
+            - trial
+          example: personal
+        notes:
+          type: string
+          description: Internal notes about the account's license.
+          example: Upgraded from trial license.
+
+modifyAccountLicense:
+  type: object
+  description: Information about the account license operation.
+  properties:
+    status:
+      type: string
+      description: |
+        The license operation's status:
+        - `added` — The license was added to the account.
+        - `removed` — The license was removed from the account.
+        - `transferred` — The license was transferred to the account.
+      enum:
+        - added
+        - removed
+        - transferred
+      example: added
+    message:
+      type: string
+      description: The operation's message.
+      example: License '7d56bd9d-a642-4fee-9700-0c5c60c98e26' ('personal') added to account 89021278386
+    license:
+      type: object
+      description: Information about the license.
+      properties:
+        id:
+          type: string
+          description: The license's ID.
+          example: 7d56bd9d-a642-4fee-9700-0c5c60c98e26
+        type:
+          type: string
+          description: |
+            The type of license:
+            - `personal` — A personal account license.
+            - `corporate` — A corporate account license.
+            - `trial` — A trial account license.
+          enum:
+            - personal
+            - corporate
+            - trial
+          example: personal
+        accountId:
+          type: integer
+          description: The account's ID.
+          example: 89021278386
+
+# Parameters
+
+accountId:
+  type: integer
+  example: 89021278386

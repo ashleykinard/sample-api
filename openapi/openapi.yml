@@ -22,8 +22,10 @@ tags:
     description: Endpoints that manage product licenses.
 
 paths:
-  /license/{accountId}/{licenseId}:
-    $ref: paths/licenses.yml#/license_{accountId}_{licenseId}
+  /account/{accountId}/license:
+    $ref: paths/accounts.yml#/account_{accountId}_license
+  /account/{accountId}/{licenseId}:
+    $ref: paths/accounts.yml#/account_{accountId}_{licenseId}
 
 components:
   securitySchemes:

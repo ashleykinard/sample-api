@@ -6,9 +6,7 @@ licenseId:
   description: The license's unique ID.
   required: true
   schema:
-    type: string
-    format: uid
-    example: 7d56bd9d-a642-4fee-9700-0c5c60c98e26
+    $ref: ../schemas/licenses.yml#/licenseId
 
 # Query
 
@@ -18,12 +16,4 @@ licenseIdQuery:
   description: The license's unique ID.
   required: true
   schema:
-    $ref: ../schemas/licenses.yml#/schemaId
-
-licenseNotes:
-  in: query
-  name: notes
-  description: Internal notes about the license.
-  schema:
-    type: string
-    example: License removed at customer request. See ticket ABCDEFG123 for details.
+    $ref: ../schemas/licenses.yml#/licenseId

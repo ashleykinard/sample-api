@@ -1,0 +1,18 @@
+# Licenses
+
+addAccountLicense:
+  content:
+    application/json:
+      schema:
+        required:
+          - licenseId
+        type: object
+        properties:
+          licenseId:
+            type: string
+            format: uid
+            description: The license's ID.
+            example: 7d56bd9d-a642-4fee-9700-0c5c60c98e26
+          notes:
+            type: string
+            description: An optional note about the license.

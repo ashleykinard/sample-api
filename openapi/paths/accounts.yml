@@ -1,41 +1,46 @@
-license_{accountId}:
+# Licenses
+
+account_{accountId}_license:
   post:
-    summary: Add a license
+    summary: Add a license to an account
     description: Adds a new product license to the given account ID.
-    operationId: addLicense
+    operationId: addAccountLicense
     tags:
+      - Accounts
       - Product Licenses
+    requestBody:
+      $ref: ../components/requestBodies/accounts.yml#/addAccountLicense
     responses:
       '200':
-        $ref: ../components/responses/licenses.yml#/addLicense
+        $ref: ../components/responses/accounts.yml#/addAccountLicense
       '400':
         description: Invalid input parameter.
   parameters:
     - $ref: ../components/parameters/accounts.yml#/accountId
 
-license_{accountId}_{licenseId}:
+account_{accountId}_{licenseId}:
   get:
     summary: Get an account's license
     description: Returns an account's product license information.
     operationId: getAccountLicense
     tags:
+        - Accounts
         - Product Licenses
     responses:
       '200':
-        $ref: ../components/responses/licenses.yml#/getAccountLicense
+        $ref: ../components/responses/accounts.yml#/getAccountLicense
       '400':
         description: 400 Bad Request
-  delete:
-    summary: Remove an account's license
-    description: Removes a product license from the given user's account ID.
-    operationId: removeAccountLicense
+  put:
+    summary: Update an account's license
+    description: Updates the status of an account's license.
+    operationId: updateAccountLicense
     tags:
+      - Accounts
       - Product Licenses
-    parameters:
-      - $ref: ../components/parameters/licenses.yml#/licenseNotes
     responses:
       '200':
-        $ref: ../components/responses/licenses.yml#/removeLicense
+        $ref: ../components/responses/accounts.yml#/updateAccountLicense
       '400':
         description: Invalid input parameter.
   parameters:

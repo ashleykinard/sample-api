@@ -6,8 +6,7 @@ accountId:
   description: The user account ID.
   required: true
   schema:
-    type: integer
-    example: 89021278386
+    $ref: ../schemas/accounts.yml#/accountId
 
 # Query
 
@@ -17,5 +16,4 @@ accountIdQuery:
   description: The user account ID.
   required: true
   schema:
-    type: integer
-    example: 89021278386
+    $ref: ../schemas/accounts.yml#/accountId
