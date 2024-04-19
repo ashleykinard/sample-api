@@ -1,0 +1,33 @@
+addLicense:
+  description: License Added
+  content:
+    application/json:
+      schema:
+        $ref: ../schemas/licenses.yml#/modifyAccountLicense
+      example:
+        status: success
+        message: License '1234ABCD' ('personal') added to account 123
+        license:
+          id: 1234ABCD
+          type: personal
+          accountId: 123
+
+getAccountLicense:
+  description: Successful Response
+  content:
+    application/json:
+      schema:
+        $ref: ../schemas/licenses.yml#/getLicense
+
+removeLicense:
+  description: License Removed
+  content:
+    application/json:
+      schema:
+        $ref: ../schemas/licenses.yml#/removeLicense
+      example:
+        message: Removed license '1234ABCD' from account 123
+        license:
+          id: 1234ABCD
+          type: personal
+          accountId: 123

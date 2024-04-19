@@ -1,0 +1,21 @@
+# Path
+
+accountId:
+  name: accountId
+  in: path
+  description: The user account ID.
+  required: true
+  schema:
+    type: integer
+    example: 123
+
+# Query
+
+accountIdQuery:
+  name: accountId
+  in: query
+  description: The user account ID.
+  required: true
+  schema:
+    type: integer
+    example: 123

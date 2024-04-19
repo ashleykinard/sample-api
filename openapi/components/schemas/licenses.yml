@@ -1,0 +1,122 @@
+modifyAccountLicense:
+  type: object
+  description: Information about the account license operation.
+  properties:
+    status:
+      type: string
+      description: |
+        The license operation's status:
+        - `added` — The license was added to the account.
+        - `removed` — The license was removed from the account.
+        - `transferred` — The license was transferred to the account.
+      enum:
+        - added
+        - removed
+        - transferred
+      example: added
+    message:
+      type: string
+      description: The operation's message.
+      example: License '1234ABCD' ('personal') added to account '123'
+    license:
+      type: object
+      description: Information about the license.
+      properties:
+        id:
+          type: string
+          description: The license's ID.
+          example: 1234ABCD
+        type:
+          type: string
+          description: |
+            The type of license:
+            - `personal` — A personal account license.
+            - `corporate` — A corporate account license.
+            - `trial` — A trial account license.
+          enum:
+            - personal
+            - corporate
+            - trial
+          example: personal
+        accountId:
+          type: integer
+          description: The account's unique ID.
+          example: 123
+
+removeLicense:
+  type: object
+  properties:
+    message:
+      type: string
+      description: The results of the license removal.
+      example: Removed license '1234ABCD' from account 123
+    license:
+      type: object
+      description: Information about the license.
+      properties:
+        id:
+          type: string
+          description: The license's ID.
+          example: 1234ABCD
+        type:
+          type: string
+          description: The type of license.
+          example: personal
+        accountId:
+          type: integer
+          description: The account ID the license was removed from.
+          example: 123
+
+getLicense:
+  type: object
+  properties:
+    status:
+      type: boolean
+      description: Whether the function succeeded.
+      example: false
+    function:
+      type: string
+      description: The name of function.
+      example: getLicense
+    errors:
+      type: array
+      nullable: true
+      description: A list of errors if the API failed.
+      example: ~
+      items:
+        type: string
+    payload:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            username:
+              type: string
+              format: username
+              description: The account's username.
+              example: exampleuser
+            accountId:
+              type: integer
+              description: The account's unique ID.
+              example: 123
+            id:
+              type: string
+              description: The account's license ID.
+              example: ABCD1234
+            type:
+              type: string
+              description: |
+                The type of license:
+                - `personal` — A personal account license.
+                - `corporate` — A corporate account license.
+                - `trial` — A trial account license.
+              enum:
+                - personal
+                - corporate
+                - trial
+              example: personal
+            notes:
+              type: string
+              description: Internal notes about the account's license.
+              example: Upgraded from trial license.

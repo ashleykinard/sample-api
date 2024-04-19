@@ -1,0 +1,29 @@
+# Path
+
+licenseId:
+  name: licenseId
+  in: path
+  description: The license ID.
+  required: true
+  schema:
+    type: string
+    example: 1234ABCD
+
+# Query
+
+licenseIdQuery:
+  name: licenseId
+  in: query
+  description: The license ID.
+  required: true
+  schema:
+    type: string
+    example: 1234ABCD
+
+licenseNotes:
+  in: query
+  name: notes
+  description: Internal notes about the license.
+  schema:
+    type: string
+    example: License removed at customer request. See ticket ABCDEFG123 for details.
