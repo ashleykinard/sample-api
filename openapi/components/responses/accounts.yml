@@ -12,7 +12,7 @@ addAccountLicense:
   content:
     application/json:
       schema:
-        $ref: ../schemas/accounts.yml#/modifyAccountLicense
+        $ref: ../schemas/accounts.yml#/accountLicenseStatus
       example:
         status: added
         message: License '7d56bd9d-a642-4fee-9700-0c5c60c98e26' ('personal') added to account 89021278386
@@ -20,13 +20,14 @@ addAccountLicense:
           id: 7d56bd9d-a642-4fee-9700-0c5c60c98e26
           type: personal
           accountId: 89021278386
+        notes: upgraded from trial license
 
 updateAccountLicense:
   description: License Removed
   content:
     application/json:
       schema:
-        $ref: ../schemas/accounts.yml#/modifyAccountLicense
+        $ref: ../schemas/accounts.yml#/accountLicenseStatus
       example:
         status: removed
         message: Removed license '7d56bd9d-a642-4fee-9700-0c5c60c98e26' from account 89021278386
@@ -34,3 +35,4 @@ updateAccountLicense:
           id: 7d56bd9d-a642-4fee-9700-0c5c60c98e26
           type: personal
           accountId: 89021278386
+        notes: removed due to license violation

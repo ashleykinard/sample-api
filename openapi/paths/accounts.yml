@@ -9,7 +9,7 @@ account_{accountId}_license:
       - Accounts
       - Product Licenses
     requestBody:
-      $ref: ../components/requestBodies/accounts.yml#/addAccountLicense
+      $ref: ../components/requestBodies/accounts.yml#/modifyAccountLicense
     responses:
       '200':
         $ref: ../components/responses/accounts.yml#/addAccountLicense

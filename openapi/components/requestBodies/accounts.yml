@@ -1,6 +1,6 @@
 # Licenses
 
-addAccountLicense:
+modifyAccountLicense:
   content:
     application/json:
       schema:
@@ -13,6 +13,17 @@ addAccountLicense:
             format: uid
             description: The license's ID.
             example: 7d56bd9d-a642-4fee-9700-0c5c60c98e26
+          status:
+            type: string
+            description: |
+              The license operation's status:
+              - `add` — Add the license to the account.
+              - `remove` — Remove the license from the account.
+            enum:
+              - add
+              - remove
+            example: add
           notes:
             type: string
             description: An optional note about the license.
+            example: upgraded from trial

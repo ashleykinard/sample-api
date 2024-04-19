@@ -31,7 +31,7 @@
     }
   ],
   "paths": {
-    "/license/{accountId}": {
+    "/account/{accountId}/license": {
       "post": {
         "summary": "Add a license to an account",
         "description": "Adds a new product license to the given account ID.",
@@ -40,10 +40,12 @@
           "Accounts",
           "Product Licenses"
         ],
-        "requestBody": null,
+        "requestBody": {
+          "$ref": "#/components/requestBodies/modifyAccountLicense"
+        },
         "responses": {
           "200": {
-            "$ref": "#/components/responses/addLicense"
+            "$ref": "#/components/responses/addAccountLicense"
           },
           "400": {
             "description": "Invalid input parameter."
@@ -56,7 +58,7 @@
         }
       ]
     },
-    "/license/{accountId}/{licenseId}": {
+    "/account/{accountId}/{licenseId}": {
       "get": {
         "summary": "Get an account's license",
         "description": "Returns an account's product license information.",
@@ -82,10 +84,9 @@
           "Accounts",
           "Product Licenses"
         ],
-        "requestBody": null,
         "responses": {
           "200": {
-            "$ref": "#/components/responses/updateLicense"
+            "$ref": "#/components/responses/updateAccountLicense"
           },
           "400": {
             "description": "Invalid input parameter."
@@ -110,31 +111,12 @@
         "name": "api-key"
       }
     },
-    "parameters": {
-      "accountId": {
-        "name": "accountId",
-        "in": "path",
-        "description": "The user account ID.",
-        "required": true,
-        "schema": {
-          "type": "integer",
-          "example": 89021278386
-        }
-      },
-      "licenseId": {
-        "name": "licenseId",
-        "in": "path",
-        "description": "The license's unique ID.",
-        "required": true,
-        "schema": {
-          "type": "string",
-          "format": "uid",
-          "example": "7d56bd9d-a642-4fee-9700-0c5c60c98e26"
-        }
-      }
-    },
     "schemas": {
-      "modifyAccountLicense": {
+      "accountId": {
+        "type": "integer",
+        "example": 89021278386
+      },
+      "accountLicenseStatus": {
         "type": "object",
         "description": "Information about the account license operation.",
         "properties": {
@@ -178,10 +160,20 @@
                 "example": 89021278386
               }
             }
+          },
+          "notes": {
+            "type": "string",
+            "description": "Notes about the account's license.",
+            "example": "upgraded from trial"
           }
         }
       },
-      "getLicense": {
+      "licenseId": {
+        "type": "string",
+        "format": "uid",
+        "example": "7d56bd9d-a642-4fee-9700-0c5c60c98e26"
+      },
+      "getAccountLicense": {
         "type": "object",
         "properties": {
           "data": {
@@ -224,13 +216,69 @@
         }
       }
     },
+    "parameters": {
+      "accountId": {
+        "name": "accountId",
+        "in": "path",
+        "description": "The user account ID.",
+        "required": true,
+        "schema": {
+          "$ref": "#/components/schemas/accountId"
+        }
+      },
+      "licenseId": {
+        "name": "licenseId",
+        "in": "path",
+        "description": "The license's unique ID.",
+        "required": true,
+        "schema": {
+          "$ref": "#/components/schemas/licenseId"
+        }
+      }
+    },
+    "requestBodies": {
+      "modifyAccountLicense": {
+        "content": {
+          "application/json": {
+            "schema": {
+              "required": [
+                "licenseId"
+              ],
+              "type": "object",
+              "properties": {
+                "licenseId": {
+                  "type": "string",
+                  "format": "uid",
+                  "description": "The license's ID.",
+                  "example": "7d56bd9d-a642-4fee-9700-0c5c60c98e26"
+                },
+                "status": {
+                  "type": "string",
+                  "description": "The license operation's status:\n- `add` — Add the license to the account.\n- `remove` — Remove the license from the account.\n",
+                  "enum": [
+                    "add",
+                    "remove"
+                  ],
+                  "example": "add"
+                },
+                "notes": {
+                  "type": "string",
+                  "description": "An optional note about the license.",
+                  "example": "upgraded from trial"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "responses": {
-      "addLicense": {
+      "addAccountLicense": {
         "description": "License Added",
         "content": {
           "application/json": {
             "schema": {
-              "$ref": "#/components/schemas/modifyAccountLicense"
+              "$ref": "#/components/schemas/accountLicenseStatus"
             },
             "example": {
               "status": "added",
@@ -239,7 +287,8 @@
                 "id": "7d56bd9d-a642-4fee-9700-0c5c60c98e26",
                 "type": "personal",
                 "accountId": 89021278386
-              }
+              },
+              "notes": "upgraded from trial license"
             }
           }
         }
@@ -249,17 +298,17 @@
         "content": {
           "application/json": {
             "schema": {
-              "$ref": "#/components/schemas/getLicense"
+              "$ref": "#/components/schemas/getAccountLicense"
             }
           }
         }
       },
-      "updateLicense": {
+      "updateAccountLicense": {
         "description": "License Removed",
         "content": {
           "application/json": {
             "schema": {
-              "$ref": "#/components/schemas/modifyAccountLicense"
+              "$ref": "#/components/schemas/accountLicenseStatus"
             },
             "example": {
               "status": "removed",
@@ -268,7 +317,8 @@
                 "id": "7d56bd9d-a642-4fee-9700-0c5c60c98e26",
                 "type": "personal",
                 "accountId": 89021278386
-              }
+              },
+              "notes": "removed due to license violation"
             }
           }
         }

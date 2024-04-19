@@ -37,7 +37,7 @@ getAccountLicense:
           description: Internal notes about the account's license.
           example: Upgraded from trial license.
 
-modifyAccountLicense:
+accountLicenseStatus:
   type: object
   description: Information about the account license operation.
   properties:
@@ -81,6 +81,10 @@ modifyAccountLicense:
           type: integer
           description: The account's ID.
           example: 89021278386
+    notes:
+      type: string
+      description: Notes about the account's license.
+      example: upgraded from trial
 
 # Parameters
 
