@@ -17,7 +17,9 @@ servers:
 
 tags:
   - name: Accounts
+    description: Endpoints that manage user accounts.
   - name: Product Licenses
+    description: Endpoints that manage product licenses.
 
 paths:
   /license/{accountId}/{licenseId}:

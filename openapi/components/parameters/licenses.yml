@@ -3,22 +3,22 @@
 licenseId:
   name: licenseId
   in: path
-  description: The license ID.
+  description: The license's unique ID.
   required: true
   schema:
     type: string
-    example: 1234ABCD
+    format: uid
+    example: 7d56bd9d-a642-4fee-9700-0c5c60c98e26
 
 # Query
 
 licenseIdQuery:
   name: licenseId
   in: query
-  description: The license ID.
+  description: The license's unique ID.
   required: true
   schema:
-    type: string
-    example: 1234ABCD
+    $ref: ../schemas/licenses.yml#/schemaId
 
 licenseNotes:
   in: query

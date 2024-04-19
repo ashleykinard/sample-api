@@ -103,7 +103,7 @@
         "required": true,
         "schema": {
           "type": "string",
-          "example": "1234ABCD"
+          "example": "7d56bd9d-a642-4fee-9700-0c5c60c98e26"
         }
       },
       "licenseNotes": {
@@ -188,7 +188,7 @@
           "message": {
             "type": "string",
             "description": "The results of the license removal.",
-            "example": "Removed license '1234ABCD' from account 123"
+            "example": "Removed license '7d56bd9d-a642-4fee-9700-0c5c60c98e26' from account 123"
           },
           "license": {
             "type": "object",
@@ -197,7 +197,7 @@
               "id": {
                 "type": "string",
                 "description": "The license's ID.",
-                "example": "1234ABCD"
+                "example": "7d56bd9d-a642-4fee-9700-0c5c60c98e26"
               },
               "type": {
                 "type": "string",
@@ -233,9 +233,9 @@
               "$ref": "#/components/schemas/removeLicense"
             },
             "example": {
-              "message": "Removed license '1234ABCD' from account 123",
+              "message": "Removed license '7d56bd9d-a642-4fee-9700-0c5c60c98e26' from account 123",
               "license": {
-                "id": "1234ABCD",
+                "id": "7d56bd9d-a642-4fee-9700-0c5c60c98e26",
                 "type": "personal",
                 "accountId": 123
               }

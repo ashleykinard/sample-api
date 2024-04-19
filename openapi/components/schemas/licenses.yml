@@ -17,7 +17,7 @@ modifyAccountLicense:
     message:
       type: string
       description: The operation's message.
-      example: License '1234ABCD' ('personal') added to account '123'
+      example: License '7d56bd9d-a642-4fee-9700-0c5c60c98e26' ('personal') added to account 89021278386
     license:
       type: object
       description: Information about the license.
@@ -25,7 +25,7 @@ modifyAccountLicense:
         id:
           type: string
           description: The license's ID.
-          example: 1234ABCD
+          example: 7d56bd9d-a642-4fee-9700-0c5c60c98e26
         type:
           type: string
           description: |
@@ -40,8 +40,8 @@ modifyAccountLicense:
           example: personal
         accountId:
           type: integer
-          description: The account's unique ID.
-          example: 123
+          description: The account's ID.
+          example: 89021278386
 
 removeLicense:
   type: object
@@ -49,7 +49,7 @@ removeLicense:
     message:
       type: string
       description: The results of the license removal.
-      example: Removed license '1234ABCD' from account 123
+      example: Removed license '7d56bd9d-a642-4fee-9700-0c5c60c98e26' from account 89021278386
     license:
       type: object
       description: Information about the license.
@@ -57,7 +57,7 @@ removeLicense:
         id:
           type: string
           description: The license's ID.
-          example: 1234ABCD
+          example: 7d56bd9d-a642-4fee-9700-0c5c60c98e26
         type:
           type: string
           description: The type of license.
@@ -65,58 +65,48 @@ removeLicense:
         accountId:
           type: integer
           description: The account ID the license was removed from.
-          example: 123
+          example: 89021278386
 
 getLicense:
   type: object
   properties:
-    status:
-      type: boolean
-      description: Whether the function succeeded.
-      example: false
-    function:
-      type: string
-      description: The name of function.
-      example: getLicense
-    errors:
-      type: array
-      nullable: true
-      description: A list of errors if the API failed.
-      example: ~
-      items:
-        type: string
-    payload:
+    data:
       type: object
       properties:
-        data:
-          type: object
-          properties:
-            username:
-              type: string
-              format: username
-              description: The account's username.
-              example: exampleuser
-            accountId:
-              type: integer
-              description: The account's unique ID.
-              example: 123
-            id:
-              type: string
-              description: The account's license ID.
-              example: ABCD1234
-            type:
-              type: string
-              description: |
-                The type of license:
-                - `personal` — A personal account license.
-                - `corporate` — A corporate account license.
-                - `trial` — A trial account license.
-              enum:
-                - personal
-                - corporate
-                - trial
-              example: personal
-            notes:
-              type: string
-              description: Internal notes about the account's license.
-              example: Upgraded from trial license.
+        username:
+          type: string
+          format: username
+          description: The account's username.
+          example: example.user
+        accountId:
+          type: integer
+          description: The account's ID.
+          example: 89021278386
+        id:
+          type: string
+          format: uid
+          description: The account's license ID.
+          example: 7d56bd9d-a642-4fee-9700-0c5c60c98e26
+        type:
+          type: string
+          description: |
+            The type of license:
+            - `personal` — A personal account license.
+            - `corporate` — A corporate account license.
+            - `trial` — A trial account license.
+          enum:
+            - personal
+            - corporate
+            - trial
+          example: personal
+        notes:
+          type: string
+          description: Internal notes about the account's license.
+          example: Upgraded from trial license.
+
+# Parameters
+
+schemaId:
+  type: string
+  format: uid
+  example: 7d56bd9d-a642-4fee-9700-0c5c60c98e26
