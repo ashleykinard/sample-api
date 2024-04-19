@@ -1,0 +1,248 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Mock Accounts API",
+    "description": "A mock up of an account management API.",
+    "version": "1.0.0",
+    "contact": {
+      "name": "Ashley Kinard",
+      "email": "ashleymkinard@gmail.com",
+      "url": "https://ashleykinard.pro/"
+    }
+  },
+  "servers": [
+    {
+      "url": "https://example.com"
+    }
+  ],
+  "security": [
+    {
+      "userApiKey": []
+    }
+  ],
+  "tags": [
+    {
+      "name": "Accounts"
+    },
+    {
+      "name": "Product Licenses"
+    }
+  ],
+  "paths": {
+    "/license/{accountId}/{licenseId}": {
+      "get": {
+        "summary": "Get an account's license",
+        "description": "Returns an account's product license information.",
+        "operationId": "getAccountLicense",
+        "tags": [
+          "Product Licenses"
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/getAccountLicense"
+          },
+          "400": {
+            "description": "400 Bad Request"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Remove an account's license",
+        "description": "Removes a product license from the given user's account ID.",
+        "operationId": "removeAccountLicense",
+        "tags": [
+          "Product Licenses"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/licenseNotes"
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/removeLicense"
+          },
+          "400": {
+            "description": "Invalid input parameter."
+          }
+        }
+      },
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/accountId"
+        },
+        {
+          "$ref": "#/components/parameters/licenseId"
+        }
+      ]
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "userApiKey": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "api-key"
+      }
+    },
+    "parameters": {
+      "accountId": {
+        "name": "accountId",
+        "in": "path",
+        "description": "The user account ID.",
+        "required": true,
+        "schema": {
+          "type": "integer",
+          "example": 123
+        }
+      },
+      "licenseId": {
+        "name": "licenseId",
+        "in": "path",
+        "description": "The license ID.",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "example": "1234ABCD"
+        }
+      },
+      "licenseNotes": {
+        "in": "query",
+        "name": "notes",
+        "description": "Internal notes about the license.",
+        "schema": {
+          "type": "string",
+          "example": "License removed at customer request. See ticket ABCDEFG123 for details."
+        }
+      }
+    },
+    "schemas": {
+      "getLicense": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "boolean",
+            "description": "Whether the function succeeded.",
+            "example": false
+          },
+          "function": {
+            "type": "string",
+            "description": "The name of function.",
+            "example": "getLicense"
+          },
+          "errors": {
+            "type": "array",
+            "nullable": true,
+            "description": "A list of errors if the API failed.",
+            "example": null,
+            "items": {
+              "type": "string"
+            }
+          },
+          "payload": {
+            "type": "object",
+            "properties": {
+              "data": {
+                "type": "object",
+                "properties": {
+                  "username": {
+                    "type": "string",
+                    "format": "username",
+                    "description": "The account's username.",
+                    "example": "exampleuser"
+                  },
+                  "accountId": {
+                    "type": "integer",
+                    "description": "The account's unique ID.",
+                    "example": 123
+                  },
+                  "id": {
+                    "type": "string",
+                    "description": "The account's license ID.",
+                    "example": "ABCD1234"
+                  },
+                  "type": {
+                    "type": "string",
+                    "description": "The type of license:\n- `personal` — A personal account license.\n- `corporate` — A corporate account license.\n- `trial` — A trial account license.\n",
+                    "enum": [
+                      "personal",
+                      "corporate",
+                      "trial"
+                    ],
+                    "example": "personal"
+                  },
+                  "notes": {
+                    "type": "string",
+                    "description": "Internal notes about the account's license.",
+                    "example": "Upgraded from trial license."
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "removeLicense": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "description": "The results of the license removal.",
+            "example": "Removed license '1234ABCD' from account 123"
+          },
+          "license": {
+            "type": "object",
+            "description": "Information about the license.",
+            "properties": {
+              "id": {
+                "type": "string",
+                "description": "The license's ID.",
+                "example": "1234ABCD"
+              },
+              "type": {
+                "type": "string",
+                "description": "The type of license.",
+                "example": "personal"
+              },
+              "accountId": {
+                "type": "integer",
+                "description": "The account ID the license was removed from.",
+                "example": 123
+              }
+            }
+          }
+        }
+      }
+    },
+    "responses": {
+      "getAccountLicense": {
+        "description": "Successful Response",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/getLicense"
+            }
+          }
+        }
+      },
+      "removeLicense": {
+        "description": "License Removed",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/removeLicense"
+            },
+            "example": {
+              "message": "Removed license '1234ABCD' from account 123",
+              "license": {
+                "id": "1234ABCD",
+                "type": "personal",
+                "accountId": 123
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
