@@ -130,7 +130,7 @@ accountInfo:
               description: The zip code.
               example: 55555
 
-createAccount:
+createUpdateAccount:
   type: object
   properties:
     data:

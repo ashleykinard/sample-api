@@ -1,6 +1,6 @@
 # Account Management
 
-createAccount:
+createUpdateAccount:
   content:
     application/json:
       schema:

@@ -44,11 +44,11 @@
           "Accounts"
         ],
         "requestBody": {
-          "$ref": "#/components/requestBodies/createAccount"
+          "$ref": "#/components/requestBodies/createUpdateAccount"
         },
         "responses": {
           "200": {
-            "$ref": "#/components/responses/createAccount"
+            "$ref": "#/components/responses/createUpdateAccount"
           },
           "400": {
             "description": "Bad Request"
@@ -77,13 +77,48 @@
           "404": {
             "description": "Not Found"
           }
+        }
+      },
+      "put": {
+        "summary": "Update an account",
+        "description": "Updates an account's information.",
+        "operationId": "updateAccount",
+        "tags": [
+          "Accounts"
+        ],
+        "requestBody": {
+          "$ref": "#/components/requestBodies/createUpdateAccount"
         },
-        "parameters": [
-          {
-            "$ref": "#/components/parameters/accountId"
+        "responses": {
+          "200": {
+            "description": "placeholder"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Account Not Found"
           }
-        ]
-      }
+        }
+      },
+      "delete": {
+        "summary": "Remove an account",
+        "description": "Removes an account from the active accounts database.\n\n**Note:**\n\nThis endpoint soft deletes the account. It does **not** permanently delete the account from the accounts database.\n",
+        "operationId": "deleteAccount",
+        "tags": [
+          "Accounts"
+        ],
+        "responses": {
+          "204": {
+            "description": "Deleted"
+          }
+        }
+      },
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/accountId"
+        }
+      ]
     },
     "/account/{accountId}/licenses": {
       "get": {
@@ -317,7 +352,7 @@
           }
         }
       },
-      "createAccount": {
+      "createUpdateAccount": {
         "type": "object",
         "properties": {
           "data": {
@@ -526,7 +561,7 @@
       }
     },
     "requestBodies": {
-      "createAccount": {
+      "createUpdateAccount": {
         "content": {
           "application/json": {
             "schema": {
@@ -572,12 +607,12 @@
       }
     },
     "responses": {
-      "createAccount": {
+      "createUpdateAccount": {
         "description": "Account Created",
         "content": {
           "application/json": {
             "schema": {
-              "$ref": "#/components/schemas/createAccount"
+              "$ref": "#/components/schemas/createUpdateAccount"
             }
           }
         }

@@ -1,11 +1,11 @@
 # Account Management
 
-createAccount:
+createUpdateAccount:
   description: Account Created
   content:
     application/json:
       schema:
-        $ref: ../schemas/accounts.yml#/createAccount
+        $ref: ../schemas/accounts.yml#/createUpdateAccount
 
 getAccount:
   description: Successful Response

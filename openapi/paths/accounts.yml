@@ -8,10 +8,10 @@ account:
     tags:
       - Accounts
     requestBody:
-      $ref: ../components/requestBodies/accounts.yml#/createAccount
+      $ref: ../components/requestBodies/accounts.yml#/createUpdateAccount
     responses:
       '200':
-        $ref: ../components/responses/accounts.yml#/createAccount
+        $ref: ../components/responses/accounts.yml#/createUpdateAccount
       '400':
         description: Bad Request
       '401':
@@ -31,7 +31,36 @@ account_{accountId}:
         description: Unauthorized
       '404':
         description: Not Found
-    parameters:
+  put:
+    summary: Update an account
+    description: Updates an account's information.
+    operationId: updateAccount
+    tags:
+      - Accounts
+    requestBody:
+      $ref: ../components/requestBodies/accounts.yml#/createUpdateAccount
+    responses:
+      '200':
+        description: placeholder
+      '401':
+        description: Unauthorized
+      '404':
+        description: Account Not Found
+  delete:
+    summary: Remove an account
+    description: |
+      Removes an account from the active accounts database.
+
+      **Note:**
+
+      This endpoint soft deletes the account. It does **not** permanently delete the account from the accounts database.
+    operationId: deleteAccount
+    tags:
+      - Accounts
+    responses:
+      '204':
+        description: Deleted
+  parameters:
     - $ref: ../components/parameters/accounts.yml#/accountId
 
 account_{accountId}_licenses:
