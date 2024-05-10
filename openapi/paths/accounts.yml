@@ -34,13 +34,28 @@ account_{accountId}:
     parameters:
     - $ref: ../components/parameters/accounts.yml#/accountId
 
-account_{accountId}_{licenseId}:
+account_{accountId}_licenses:
+  get:
+    summary: Get account licenses
+    description: Returns information about all licenses assigned to the given account ID.
+    operationId: getAccountLicenses
+    tags:
+      - Account Licenses
+    responses:
+      '200':
+        $ref: ../components/responses/accounts.yml#/getAccountLicenses
+      '404':
+        description: Account Not Found
+    parameters:
+    - $ref: ../components/parameters/accounts.yml#/accountId
+
+account_{accountId}_licenses_{licenseId}:
   get:
     summary: Get an account's license
     description: Returns an account's product license information.
     operationId: getAccountLicense
     tags:
-        - Account Licenses
+      - Account Licenses
     responses:
       '200':
         $ref: ../components/responses/accounts.yml#/getAccountLicense

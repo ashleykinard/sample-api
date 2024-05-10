@@ -23,6 +23,13 @@ getAccountLicense:
       schema:
         $ref: ../schemas/accounts.yml#/getAccountLicense
 
+getAccountLicenses:
+  description: Successful Response
+  content:
+    application/json:
+      schema:
+        $ref: ../schemas/accounts.yml#/getAccountLicenses
+
 addAccountLicense:
   description: License Added
   content:

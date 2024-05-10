@@ -32,10 +32,12 @@ accountInfo:
         - corporate
       example: personal
     licenseId:
-      type: string
-      format: uid
-      description: The license assigned to the account.
-      example: 7d56bd9d-a642-4fee-9700-0c5c60c98e26
+      type: array
+      description: A list of the licenses assigned to the account.
+      items:
+        type: string
+        format: uid
+        example: 7d56bd9d-a642-4fee-9700-0c5c60c98e26
     userInfo:
       type: object
       required:
@@ -253,6 +255,45 @@ getAccountLicense:
           type: string
           description: Internal notes about the account's license.
           example: Upgraded from trial license.
+
+getAccountLicenses:
+  type: object
+  properties:
+    data:
+      type: array
+      items:
+        type: object
+        description: A list of the account's assigned licenses.
+        properties:
+          id:
+            type: string
+            format: uid
+            description: The license's ID.
+            example: 7d56bd9d-a642-4fee-9700-0c5c60c98e26
+          licenseType:
+            type: string
+            description: |
+              The type of license:
+              - `personal` — A personal account license.
+              - `corporate` — A corporate account license.
+              - `trial` — A trial account license.
+            enum:
+              - personal
+              - corporate
+              - trial
+            example: personal
+          licenseName:
+            type: string
+            description: The license's name.
+            example: Basic
+          licenseState:
+            type: string
+            description: The account's license state.
+            example: active
+          notes:
+            type: string
+            description: Internal notes about the account's license.
+            example: Upgraded from trial license.
 
 accountLicenseStatus:
   type: object

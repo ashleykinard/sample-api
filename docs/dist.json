@@ -85,7 +85,30 @@
         ]
       }
     },
-    "/account/{accountId}/{licenseId}": {
+    "/account/{accountId}/licenses": {
+      "get": {
+        "summary": "Get account licenses",
+        "description": "Returns information about all licenses assigned to the given account ID.",
+        "operationId": "getAccountLicenses",
+        "tags": [
+          "Account Licenses"
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/getAccountLicenses"
+          },
+          "404": {
+            "description": "Account Not Found"
+          }
+        },
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/accountId"
+          }
+        ]
+      }
+    },
+    "/account/{accountId}/licenses/{licenseId}": {
       "get": {
         "summary": "Get an account's license",
         "description": "Returns an account's product license information.",
@@ -107,7 +130,7 @@
       },
       "put": {
         "summary": "Update an account's license",
-        "description": "Updates the status of an account's license.",
+        "description": "Updates the status of an account's product license.",
         "operationId": "updateAccountLicense",
         "tags": [
           "Account Licenses"
@@ -180,10 +203,13 @@
             "example": "personal"
           },
           "licenseId": {
-            "type": "string",
-            "format": "uid",
-            "description": "The license assigned to the account.",
-            "example": "7d56bd9d-a642-4fee-9700-0c5c60c98e26"
+            "type": "array",
+            "description": "A list of the licenses assigned to the account.",
+            "items": {
+              "type": "string",
+              "format": "uid",
+              "example": "7d56bd9d-a642-4fee-9700-0c5c60c98e26"
+            }
           },
           "userInfo": {
             "type": "object",
@@ -348,6 +374,46 @@
       "accountId": {
         "type": "integer",
         "example": 89021278386
+      },
+      "getAccountLicenses": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "description": "A list of the account's assigned licenses.",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "format": "uid",
+                  "description": "The license's ID.",
+                  "example": "7d56bd9d-a642-4fee-9700-0c5c60c98e26"
+                },
+                "licenseType": {
+                  "type": "string",
+                  "description": "The type of license:\n- `personal` — A personal account license.\n- `corporate` — A corporate account license.\n- `trial` — A trial account license.\n",
+                  "enum": [
+                    "personal",
+                    "corporate",
+                    "trial"
+                  ],
+                  "example": "personal"
+                },
+                "licenseState": {
+                  "type": "string",
+                  "description": "The account's license state.",
+                  "example": "active"
+                },
+                "notes": {
+                  "type": "string",
+                  "description": "Internal notes about the account's license.",
+                  "example": "Upgraded from trial license."
+                }
+              }
+            }
+          }
+        }
       },
       "licenseId": {
         "type": "string",
@@ -517,6 +583,16 @@
           "application/json": {
             "schema": {
               "$ref": "#/components/schemas/accountInfo"
+            }
+          }
+        }
+      },
+      "getAccountLicenses": {
+        "description": "Successful Response",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/getAccountLicenses"
             }
           }
         }

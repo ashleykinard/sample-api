@@ -28,8 +28,10 @@ paths:
     $ref: paths/accounts.yml#/account
   /account/{accountId}:
     $ref: paths/accounts.yml#/account_{accountId}
-  /account/{accountId}/{licenseId}:
-    $ref: paths/accounts.yml#/account_{accountId}_{licenseId}
+  /account/{accountId}/licenses:
+    $ref: paths/accounts.yml#/account_{accountId}_licenses
+  /account/{accountId}/licenses/{licenseId}:
+    $ref: paths/accounts.yml#/account_{accountId}_licenses_{licenseId}
 
 components:
   securitySchemes:
