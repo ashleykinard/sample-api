@@ -1,3 +1,173 @@
+# Account Management
+
+accountInfo:
+  required:
+    - username
+    - email
+    - active
+    - accountType
+  type: object
+  properties:
+    username:
+      type: string
+      description: The account's username.
+      example: alex.lee
+    email:
+      type: string
+      format: email
+      description: The account holder's email address.
+    active:
+      type: boolean
+      description: If true, the account is activated on creation.
+      example: true
+    accountType:
+      type: string
+      description: |
+        The type of account:
+        - `personal`
+        - `corporate`
+      enum:
+        - personal
+        - corporate
+      example: personal
+    userInfo:
+      type: object
+      required:
+        - firstName
+        - lastName
+        - address
+      description: Information about the account holder.
+      properties:
+        firstName:
+          type: string
+          description: The account holder's first name.
+          example: Alex
+        lastName:
+          type: string
+          description: The account holder's last name.
+          example: Lee
+        phone:
+          type: string
+          description: A primary contact phone number.
+          example: 555-123-4567
+        address:
+          type: object
+          description: The account holder's physical address.
+          properties:
+            street:
+              type: string
+              description: The street address.
+              example: 1234 Lexington Way
+            city:
+              type: string
+              description: The city of primary residence.
+              example: Lansing
+            state:
+              type: string
+              description: The state's [two-letter abbreviation](https://en.wikipedia.org/wiki/List_of_U.S._state_and_territory_abbreviations).
+              enum:
+                - AL
+                - AK
+                - AZ
+                - AR
+                - CA
+                - CO
+                - CT
+                - DE
+                - FL
+                - GA
+                - HI
+                - ID
+                - IL
+                - IN
+                - IA
+                - KS
+                - KY
+                - LA
+                - ME
+                - MD
+                - MA
+                - MI
+                - MN
+                - MS
+                - MO
+                - MT
+                - NE
+                - NV
+                - NH
+                - NJ
+                - NM
+                - NY
+                - NC
+                - ND
+                - OH
+                - OK
+                - OR
+                - PA
+                - RI
+                - SC
+                - SD
+                - TN
+                - TX
+                - UT
+                - VT
+                - VA
+                - WA
+                - WV
+                - WI
+                - WY
+              example: MI
+            zipCode:
+              type: number
+              description: The zip code.
+              example: 55555
+
+createAccount:
+  type: object
+  properties:
+    data:
+      type: object
+      properties:
+        username:
+          type: string
+          description: The account's username.
+          example: alex.lee
+        id:
+          type: integer
+          description: The account's ID.
+          example: 89021278386
+        accountType:
+          type: string
+          description: The type of account.
+          example: personal
+        active:
+          type: boolean
+          description: If true, the account is active.
+          example: true
+
+getAccount:
+  type: object
+  properties:
+    data:
+      type: object
+      properties:
+        username:
+          type: string
+          description: The account's username.
+          example: alex.lee
+        id:
+          type: integer
+          description: The account's ID.
+          example: 89021278386
+        accountType:
+          type: string
+          description: The type of account.
+          example: personal
+        active:
+          type: boolean
+          description: If true, the account is active.
+          example: true
+
 # Licenses
 
 getAccountLicense:
@@ -10,7 +180,7 @@ getAccountLicense:
           type: string
           format: username
           description: The account's username.
-          example: example.user
+          example: alex.lee
         accountId:
           type: integer
           description: The account's ID.

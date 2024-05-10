@@ -1,3 +1,19 @@
+# Account Management
+
+createAccount:
+  description: Account Created
+  content:
+    application/json:
+      schema:
+        $ref: ../schemas/accounts.yml#/createAccount
+
+getAccount:
+  description: Successful Response
+  content:
+    application/json:
+      schema:
+        $ref: ../schemas/accounts.yml#/accountInfo
+
 # Licenses
 
 getAccountLicense:

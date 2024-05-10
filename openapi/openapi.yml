@@ -2,7 +2,7 @@ openapi: 3.0.0
 
 info:
   title: Mock Accounts API
-  description: A mock up of an account management API.
+  description: A mock up of a simple account management API for sample purposes.
   version: "1.0.0"
   contact:
     name: Ashley Kinard
@@ -26,6 +26,8 @@ tags:
 paths:
   /account:
     $ref: paths/accounts.yml#/account
+  /account/{accountId}:
+    $ref: paths/accounts.yml#/account_{accountId}
   /account/{accountId}/{licenseId}:
     $ref: paths/accounts.yml#/account_{accountId}_{licenseId}
 

@@ -3,7 +3,7 @@
 account:
   post:
     summary: Create an account
-    description: Creates a new customer account.
+    description: Creates a new account.
     operationId: createAccount
     tags:
       - Accounts
@@ -11,7 +11,28 @@ account:
       $ref: ../components/requestBodies/accounts.yml#/createAccount
     responses:
       '200':
-        description: placeholder
+        $ref: ../components/responses/accounts.yml#/createAccount
+      '400':
+        description: Bad Request
+      '401':
+        description: Unauthorized
+
+account_{accountId}:
+  get:
+    summary: Get an account
+    description: Gets information about an account.
+    operationId: getAccount
+    tags:
+      - Accounts
+    responses:
+      '200':
+        $ref: ../components/responses/accounts.yml#/getAccount
+      '401':
+        description: Unauthorized
+      '404':
+        description: Not Found
+    parameters:
+    - $ref: ../components/parameters/accounts.yml#/accountId
 
 account_{accountId}_{licenseId}:
   get:
@@ -24,9 +45,9 @@ account_{accountId}_{licenseId}:
       '200':
         $ref: ../components/responses/accounts.yml#/getAccountLicense
       '400':
-        description: Invalid license ID.
+        description: Invalid License ID
       '404':
-        description: Account not found.
+        description: Account Not Found
   post:
     summary: Add a license to an account
     description: Adds a new product license to the given account ID.
@@ -39,9 +60,9 @@ account_{accountId}_{licenseId}:
       '200':
         $ref: ../components/responses/accounts.yml#/addAccountLicense
       '400':
-        description: Invalid input parameter.
+        description: Invalid Input Parameter
       '404':
-        description: Account not found.
+        description: Account Not Found
   put:
     summary: Update an account's license
     description: Updates the status of an account's license.
@@ -54,9 +75,9 @@ account_{accountId}_{licenseId}:
       '200':
         $ref: ../components/responses/accounts.yml#/updateAccountLicense
       '400':
-        description: Invalid input parameter.
+        description: Invalid Input Parameter
       '404':
-        description: Account not found.
+        description: Account Not Found
   parameters:
     - $ref: ../components/parameters/accounts.yml#/accountId
     - $ref: ../components/parameters/licenses.yml#/licenseId

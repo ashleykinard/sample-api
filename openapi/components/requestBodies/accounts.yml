@@ -4,75 +4,7 @@ createAccount:
   content:
     application/json:
       schema:
-        required:
-          - username
-          - email
-          - active
-          - accountType
-        type: object
-        properties:
-          username:
-            type: string
-            description: The account's username.
-            example: example.user
-          email:
-            type: string
-            format: email
-            description: The account holder's email address.
-          active:
-            type: boolean
-            description: If true, the account is activated on creation.
-            example: true
-          accountType:
-            type: string
-            description: |
-              The type of account:
-              - `personal`
-              - `corporate`
-            enum:
-              - personal
-              - corporate
-            example: personal
-          userInfo:
-            type: object
-            required:
-              - firstName
-              - lastName
-              - address
-            description: Information about the account holder.
-            properties:
-              firstName:
-                type: string
-                description: The account holder's first name.
-                example: Alex
-              lastName:
-                type: string
-                description: The account holder's last name.
-                example: Lee
-              phone:
-                type: string
-                description: A primary contact phone number.
-                example: 555-123-4567
-              address:
-                type: object
-                description: The account holder's physical address.
-                properties:
-                  street:
-                    type: string
-                    description: The street address.
-                    example: 1234 Lexington Way
-                  city:
-                    type: string
-                    description: The city of primary residence.
-                    example: Lansing
-                  state:
-                    type: string
-                    description: The state.
-                    example: MI
-                  zipCode:
-                    type: number
-                    description: The zip code.
-                    example: 55555
+        $ref: ../schemas/accounts.yml#/accountInfo
 
 # Licenses
 
