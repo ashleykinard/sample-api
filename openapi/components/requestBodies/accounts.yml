@@ -12,22 +12,12 @@ addAccountLicense:
   content:
     application/json:
       schema:
-        required:
-          - licenseType
         type: object
         properties:
-          licenseType:
-            type: string
-            description: The type of account license.
-            enum:
-              - personal
-              - corporate
-              - trial
-            example: personal
           notes:
             type: string
-            description: An optional note about the license.
-            example: Upgrade from trial.
+            description: A note about the license migration.
+            example: Moved from expired account.
 
 updateAccountLicense:
   content:

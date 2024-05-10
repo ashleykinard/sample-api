@@ -105,28 +105,6 @@
           }
         }
       },
-      "post": {
-        "summary": "Add a license to an account",
-        "description": "Adds a new product license to the given account ID.",
-        "operationId": "addAccountLicense",
-        "tags": [
-          "Account Licenses"
-        ],
-        "requestBody": {
-          "$ref": "#/components/requestBodies/addAccountLicense"
-        },
-        "responses": {
-          "200": {
-            "$ref": "#/components/responses/addAccountLicense"
-          },
-          "400": {
-            "description": "Invalid Input Parameter"
-          },
-          "404": {
-            "description": "Account Not Found"
-          }
-        }
-      },
       "put": {
         "summary": "Update an account's license",
         "description": "Updates the status of an account's license.",
@@ -194,12 +172,18 @@
           },
           "accountType": {
             "type": "string",
-            "description": "The type of account:\n- `personal`\n- `corporate`\n",
+            "description": "The type of account:\n- `trial`\n- `personal`\n- `corporate`\n",
             "enum": [
               "personal",
               "corporate"
             ],
             "example": "personal"
+          },
+          "licenseId": {
+            "type": "string",
+            "format": "uid",
+            "description": "The license assigned to the account.",
+            "example": "7d56bd9d-a642-4fee-9700-0c5c60c98e26"
           },
           "userInfo": {
             "type": "object",
@@ -323,15 +307,39 @@
                 "description": "The account's ID.",
                 "example": 89021278386
               },
+              "active": {
+                "type": "boolean",
+                "description": "If true, the account is active.",
+                "example": true
+              },
               "accountType": {
                 "type": "string",
                 "description": "The type of account.",
                 "example": "personal"
               },
-              "active": {
-                "type": "boolean",
-                "description": "If true, the account is active.",
-                "example": true
+              "licenseId": {
+                "type": "array",
+                "description": "The licenses assigned to the account.",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "licenseId": {
+                      "type": "string",
+                      "description": "The license's ID.",
+                      "example": "7d56bd9d-a642-4fee-9700-0c5c60c98e26"
+                    },
+                    "licenseType": {
+                      "type": "string",
+                      "description": "The type of license.",
+                      "example": "personal"
+                    },
+                    "licenseName": {
+                      "type": "string",
+                      "description": "The name of the license.",
+                      "example": "basic"
+                    }
+                  }
+                }
               }
             }
           }
@@ -490,35 +498,6 @@
             }
           }
         }
-      },
-      "addAccountLicense": {
-        "content": {
-          "application/json": {
-            "schema": {
-              "required": [
-                "licenseType"
-              ],
-              "type": "object",
-              "properties": {
-                "licenseType": {
-                  "type": "string",
-                  "description": "The type of account license.",
-                  "enum": [
-                    "personal",
-                    "corporate",
-                    "trial"
-                  ],
-                  "example": "personal"
-                },
-                "notes": {
-                  "type": "string",
-                  "description": "An optional note about the license.",
-                  "example": "Upgrade from trial."
-                }
-              }
-            }
-          }
-        }
       }
     },
     "responses": {
@@ -571,33 +550,13 @@
             }
           }
         }
-      },
-      "addAccountLicense": {
-        "description": "License Added",
-        "content": {
-          "application/json": {
-            "schema": {
-              "$ref": "#/components/schemas/accountLicenseStatus"
-            },
-            "example": {
-              "licenseStatus": "added",
-              "message": "License '7d56bd9d-a642-4fee-9700-0c5c60c98e26' ('personal') added to account 89021278386",
-              "license": {
-                "id": "7d56bd9d-a642-4fee-9700-0c5c60c98e26",
-                "type": "personal",
-                "accountId": 89021278386
-              },
-              "notes": "upgraded from trial license"
-            }
-          }
-        }
       }
     },
     "parameters": {
       "accountId": {
         "name": "accountId",
         "in": "path",
-        "description": "The user account ID.",
+        "description": "The account ID.",
         "required": true,
         "schema": {
           "$ref": "#/components/schemas/accountId"

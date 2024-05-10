@@ -24,12 +24,18 @@ accountInfo:
       type: string
       description: |
         The type of account:
+        - `trial`
         - `personal`
         - `corporate`
       enum:
         - personal
         - corporate
       example: personal
+    licenseId:
+      type: string
+      format: uid
+      description: The license assigned to the account.
+      example: 7d56bd9d-a642-4fee-9700-0c5c60c98e26
     userInfo:
       type: object
       required:
@@ -136,14 +142,32 @@ createAccount:
           type: integer
           description: The account's ID.
           example: 89021278386
-        accountType:
-          type: string
-          description: The type of account.
-          example: personal
         active:
           type: boolean
           description: If true, the account is active.
           example: true
+        accountType:
+          type: string
+          description: The type of account.
+          example: personal
+        licenseId:
+          type: array
+          description: The licenses assigned to the account.
+          items:
+            type: object
+            properties:
+              licenseId:
+                type: string
+                description: The license's ID.
+                example: 7d56bd9d-a642-4fee-9700-0c5c60c98e26
+              licenseType:
+                type: string
+                description: The type of license.
+                example: personal
+              licenseName:
+                type: string
+                description: The name of the license.
+                example: basic
 
 getAccount:
   type: object
@@ -167,6 +191,25 @@ getAccount:
           type: boolean
           description: If true, the account is active.
           example: true
+        licenses:
+          type: array
+          description: A list of the account's licenses.
+          items:
+            type: object
+            properties:
+              licenseId:
+                type: string
+                format: uid
+                description: The license's ID.
+                example: 7d56bd9d-a642-4fee-9700-0c5c60c98e26
+              status:
+                type: string
+                description: If true, the license is active.
+                example: active
+              licenseName:
+                type: string
+                description: The name of the license.
+                example: Basic Annual
 
 # Licenses
 

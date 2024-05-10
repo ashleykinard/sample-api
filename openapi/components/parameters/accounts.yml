@@ -3,7 +3,7 @@
 accountId:
   name: accountId
   in: path
-  description: The user account ID.
+  description: The account ID.
   required: true
   schema:
     $ref: ../schemas/accounts.yml#/accountId
@@ -13,7 +13,7 @@ accountId:
 accountIdQuery:
   name: accountId
   in: query
-  description: The user account ID.
+  description: The account ID.
   required: true
   schema:
     $ref: ../schemas/accounts.yml#/accountId
