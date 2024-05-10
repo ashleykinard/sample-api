@@ -1,3 +1,218 @@
+# Account Management
+
+accountInfo:
+  required:
+    - username
+    - email
+    - active
+    - accountType
+  type: object
+  properties:
+    username:
+      type: string
+      description: The account's username.
+      example: alex.lee
+    email:
+      type: string
+      format: email
+      description: The account holder's email address.
+    active:
+      type: boolean
+      description: If true, the account is activated on creation.
+      example: true
+    accountType:
+      type: string
+      description: |
+        The type of account:
+        - `trial`
+        - `personal`
+        - `corporate`
+      enum:
+        - personal
+        - corporate
+      example: personal
+    licenseId:
+      type: array
+      description: A list of the licenses assigned to the account.
+      items:
+        type: string
+        format: uid
+        example: 7d56bd9d-a642-4fee-9700-0c5c60c98e26
+    userInfo:
+      type: object
+      required:
+        - firstName
+        - lastName
+        - address
+      description: Information about the account holder.
+      properties:
+        firstName:
+          type: string
+          description: The account holder's first name.
+          example: Alex
+        lastName:
+          type: string
+          description: The account holder's last name.
+          example: Lee
+        phone:
+          type: string
+          description: A primary contact phone number.
+          example: 555-123-4567
+        address:
+          type: object
+          description: The account holder's physical address.
+          properties:
+            street:
+              type: string
+              description: The street address.
+              example: 1234 Lexington Way
+            city:
+              type: string
+              description: The city of primary residence.
+              example: Lansing
+            state:
+              type: string
+              description: The state's [two-letter abbreviation](https://en.wikipedia.org/wiki/List_of_U.S._state_and_territory_abbreviations).
+              enum:
+                - AL
+                - AK
+                - AZ
+                - AR
+                - CA
+                - CO
+                - CT
+                - DE
+                - FL
+                - GA
+                - HI
+                - ID
+                - IL
+                - IN
+                - IA
+                - KS
+                - KY
+                - LA
+                - ME
+                - MD
+                - MA
+                - MI
+                - MN
+                - MS
+                - MO
+                - MT
+                - NE
+                - NV
+                - NH
+                - NJ
+                - NM
+                - NY
+                - NC
+                - ND
+                - OH
+                - OK
+                - OR
+                - PA
+                - RI
+                - SC
+                - SD
+                - TN
+                - TX
+                - UT
+                - VT
+                - VA
+                - WA
+                - WV
+                - WI
+                - WY
+              example: MI
+            zipCode:
+              type: number
+              description: The zip code.
+              example: 55555
+
+createUpdateAccount:
+  type: object
+  properties:
+    data:
+      type: object
+      properties:
+        username:
+          type: string
+          description: The account's username.
+          example: alex.lee
+        id:
+          type: integer
+          description: The account's ID.
+          example: 89021278386
+        active:
+          type: boolean
+          description: If true, the account is active.
+          example: true
+        accountType:
+          type: string
+          description: The type of account.
+          example: personal
+        licenseId:
+          type: array
+          description: The licenses assigned to the account.
+          items:
+            type: object
+            properties:
+              licenseId:
+                type: string
+                description: The license's ID.
+                example: 7d56bd9d-a642-4fee-9700-0c5c60c98e26
+              licenseType:
+                type: string
+                description: The type of license.
+                example: personal
+              licenseName:
+                type: string
+                description: The name of the license.
+                example: basic
+
+getAccount:
+  type: object
+  properties:
+    data:
+      type: object
+      properties:
+        username:
+          type: string
+          description: The account's username.
+          example: alex.lee
+        id:
+          type: integer
+          description: The account's ID.
+          example: 89021278386
+        accountType:
+          type: string
+          description: The type of account.
+          example: personal
+        active:
+          type: boolean
+          description: If true, the account is active.
+          example: true
+        licenses:
+          type: array
+          description: A list of the account's licenses.
+          items:
+            type: object
+            properties:
+              licenseId:
+                type: string
+                format: uid
+                description: The license's ID.
+                example: 7d56bd9d-a642-4fee-9700-0c5c60c98e26
+              status:
+                type: string
+                description: If true, the license is active.
+                example: active
+              licenseName:
+                type: string
+                description: The name of the license.
+                example: Basic Annual
+
 # Licenses
 
 getAccountLicense:
@@ -10,7 +225,7 @@ getAccountLicense:
           type: string
           format: username
           description: The account's username.
-          example: example.user
+          example: alex.lee
         accountId:
           type: integer
           description: The account's ID.
@@ -32,16 +247,59 @@ getAccountLicense:
             - corporate
             - trial
           example: personal
+        licenseState:
+          type: string
+          description: The account's license state.
+          example: active
         notes:
           type: string
           description: Internal notes about the account's license.
           example: Upgraded from trial license.
 
+getAccountLicenses:
+  type: object
+  properties:
+    data:
+      type: array
+      description: A list of the account's assigned licenses.
+      items:
+        type: object
+        properties:
+          id:
+            type: string
+            format: uid
+            description: The license's ID.
+            example: 7d56bd9d-a642-4fee-9700-0c5c60c98e26
+          licenseType:
+            type: string
+            description: |
+              The type of license:
+              - `personal` — A personal account license.
+              - `corporate` — A corporate account license.
+              - `trial` — A trial account license.
+            enum:
+              - personal
+              - corporate
+              - trial
+            example: personal
+          licenseName:
+            type: string
+            description: The license's name.
+            example: Basic Annual
+          licenseState:
+            type: string
+            description: The account's license state.
+            example: active
+          notes:
+            type: string
+            description: Internal notes about the account's license.
+            example: Upgraded from trial license.
+
 accountLicenseStatus:
   type: object
   description: Information about the account license operation.
   properties:
-    status:
+    licenseStatus:
       type: string
       description: |
         The license operation's status:

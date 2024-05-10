@@ -1,6 +1,25 @@
+# Account Management
+
+createUpdateAccount:
+  content:
+    application/json:
+      schema:
+        $ref: ../schemas/accounts.yml#/accountInfo
+
 # Licenses
 
-modifyAccountLicense:
+addAccountLicense:
+  content:
+    application/json:
+      schema:
+        type: object
+        properties:
+          notes:
+            type: string
+            description: A note about the license migration.
+            example: Moved from expired account.
+
+updateAccountLicense:
   content:
     application/json:
       schema:
@@ -11,19 +30,21 @@ modifyAccountLicense:
           licenseId:
             type: string
             format: uid
-            description: The license's ID.
+            description: The account's license ID.
             example: 7d56bd9d-a642-4fee-9700-0c5c60c98e26
-          status:
+          licenseState:
             type: string
             description: |
-              The license operation's status:
-              - `add` — Add the license to the account.
-              - `remove` — Remove the license from the account.
+              The license state:
+              - `activate` — Activate the license.
+              - `softHold` — Suspend the license for 30 days.
+              - `suspend` — Suspend the license indefinitely.
             enum:
-              - add
-              - remove
-            example: add
+              - activate
+              - softHold
+              - suspend
+            example: suspend
           notes:
             type: string
             description: An optional note about the license.
-            example: upgraded from trial
+            example: Account license suspended due to non-payment.

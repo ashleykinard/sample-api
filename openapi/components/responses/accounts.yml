@@ -1,3 +1,19 @@
+# Account Management
+
+createUpdateAccount:
+  description: Account Created
+  content:
+    application/json:
+      schema:
+        $ref: ../schemas/accounts.yml#/createUpdateAccount
+
+getAccount:
+  description: Successful Response
+  content:
+    application/json:
+      schema:
+        $ref: ../schemas/accounts.yml#/accountInfo
+
 # Licenses
 
 getAccountLicense:
@@ -7,6 +23,13 @@ getAccountLicense:
       schema:
         $ref: ../schemas/accounts.yml#/getAccountLicense
 
+getAccountLicenses:
+  description: Successful Response
+  content:
+    application/json:
+      schema:
+        $ref: ../schemas/accounts.yml#/getAccountLicenses
+
 addAccountLicense:
   description: License Added
   content:
@@ -14,7 +37,7 @@ addAccountLicense:
       schema:
         $ref: ../schemas/accounts.yml#/accountLicenseStatus
       example:
-        status: added
+        licenseStatus: added
         message: License '7d56bd9d-a642-4fee-9700-0c5c60c98e26' ('personal') added to account 89021278386
         license:
           id: 7d56bd9d-a642-4fee-9700-0c5c60c98e26
@@ -29,7 +52,7 @@ updateAccountLicense:
       schema:
         $ref: ../schemas/accounts.yml#/accountLicenseStatus
       example:
-        status: removed
+        licenseStatus: removed
         message: Removed license '7d56bd9d-a642-4fee-9700-0c5c60c98e26' from account 89021278386
         license:
           id: 7d56bd9d-a642-4fee-9700-0c5c60c98e26
