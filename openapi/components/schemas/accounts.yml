@@ -261,9 +261,9 @@ getAccountLicenses:
   properties:
     data:
       type: array
+      description: A list of the account's assigned licenses.
       items:
         type: object
-        description: A list of the account's assigned licenses.
         properties:
           id:
             type: string
@@ -285,7 +285,7 @@ getAccountLicenses:
           licenseName:
             type: string
             description: The license's name.
-            example: Basic
+            example: Basic Annual
           licenseState:
             type: string
             description: The account's license state.
