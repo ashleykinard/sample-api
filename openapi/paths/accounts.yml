@@ -41,7 +41,7 @@ account_{accountId}:
       $ref: ../components/requestBodies/accounts.yml#/createUpdateAccount
     responses:
       '200':
-        description: placeholder
+        $ref: ../components/responses/accounts.yml#/createUpdateAccount
       '401':
         description: Unauthorized
       '404':

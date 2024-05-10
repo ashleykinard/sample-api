@@ -91,7 +91,7 @@
         },
         "responses": {
           "200": {
-            "description": "placeholder"
+            "$ref": "#/components/responses/createUpdateAccount"
           },
           "401": {
             "description": "Unauthorized"
