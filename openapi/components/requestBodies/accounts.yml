@@ -1,6 +1,103 @@
+# Account Management
+
+createAccount:
+  content:
+    application/json:
+      schema:
+        required:
+          - username
+          - email
+          - active
+          - accountType
+        type: object
+        properties:
+          username:
+            type: string
+            description: The account's username.
+            example: example.user
+          email:
+            type: string
+            format: email
+            description: The account holder's email address.
+          active:
+            type: boolean
+            description: If true, the account is activated on creation.
+            example: true
+          accountType:
+            type: string
+            description: |
+              The type of account:
+              - `personal`
+              - `corporate`
+            enum:
+              - personal
+              - corporate
+            example: personal
+          userInfo:
+            type: object
+            required:
+              - firstName
+              - lastName
+              - address
+            description: Information about the account holder.
+            properties:
+              firstName:
+                type: string
+                description: The account holder's first name.
+                example: Alex
+              lastName:
+                type: string
+                description: The account holder's last name.
+                example: Lee
+              phone:
+                type: string
+                description: A primary contact phone number.
+                example: 555-123-4567
+              address:
+                type: object
+                description: The account holder's physical address.
+                properties:
+                  street:
+                    type: string
+                    description: The street address.
+                    example: 1234 Lexington Way
+                  city:
+                    type: string
+                    description: The city of primary residence.
+                    example: Lansing
+                  state:
+                    type: string
+                    description: The state.
+                    example: MI
+                  zipCode:
+                    type: number
+                    description: The zip code.
+                    example: 55555
+
 # Licenses
 
-modifyAccountLicense:
+addAccountLicense:
+  content:
+    application/json:
+      schema:
+        required:
+          - licenseType
+        type: object
+        properties:
+          licenseType:
+            type: string
+            description: The type of account license.
+            enum:
+              - personal
+              - corporate
+              - trial
+            example: personal
+          notes:
+            type: string
+            description: An optional note about the license.
+            example: Upgrade from trial.
+
+updateAccountLicense:
   content:
     application/json:
       schema:
@@ -11,19 +108,21 @@ modifyAccountLicense:
           licenseId:
             type: string
             format: uid
-            description: The license's ID.
+            description: The account's license ID.
             example: 7d56bd9d-a642-4fee-9700-0c5c60c98e26
-          status:
+          licenseState:
             type: string
             description: |
-              The license operation's status:
-              - `add` — Add the license to the account.
-              - `remove` — Remove the license from the account.
+              The license state:
+              - `activate` — Activate the license.
+              - `softHold` — Suspend the license for 30 days.
+              - `suspend` — Suspend the license indefinitely.
             enum:
-              - add
-              - remove
-            example: add
+              - activate
+              - softHold
+              - suspend
+            example: suspend
           notes:
             type: string
             description: An optional note about the license.
-            example: upgraded from trial
+            example: Account license suspended due to non-payment.

@@ -32,6 +32,10 @@ getAccountLicense:
             - corporate
             - trial
           example: personal
+        licenseState:
+          type: string
+          description: The account's license state.
+          example: active
         notes:
           type: string
           description: Internal notes about the account's license.
@@ -41,7 +45,7 @@ accountLicenseStatus:
   type: object
   description: Information about the account license operation.
   properties:
-    status:
+    licenseStatus:
       type: string
       description: |
         The license operation's status:

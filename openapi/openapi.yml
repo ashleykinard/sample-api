@@ -1,7 +1,7 @@
 openapi: 3.0.0
 
 info:
-  title: "Mock Accounts API"
+  title: Mock Accounts API
   description: A mock up of an account management API.
   version: "1.0.0"
   contact:
@@ -17,13 +17,15 @@ servers:
 
 tags:
   - name: Accounts
-    description: Endpoints that manage user accounts.
+    description: Endpoints that manage accounts.
+  - name: Account Licenses
+    description: Endpoints that manage account licenses.
   - name: Product Licenses
     description: Endpoints that manage product licenses.
 
 paths:
-  /account/{accountId}/license:
-    $ref: paths/accounts.yml#/account_{accountId}_license
+  /account:
+    $ref: paths/accounts.yml#/account
   /account/{accountId}/{licenseId}:
     $ref: paths/accounts.yml#/account_{accountId}_{licenseId}
 
