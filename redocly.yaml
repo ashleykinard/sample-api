@@ -2,14 +2,14 @@
 apis:
   sample@v1:
     root: openapi/openapi.yml
-    # Theme settings must be nested under the specific API or defined globally
-    # under 'theme' if using the correct top-level structure.
     theme:
       openapi:
         htmlTemplate: ./docs/index.html
-        colors:
-          primary:
-            main: "#32329f"
+        # Added the 'theme' key back here because 'colors' must be inside it
+        theme:
+          colors:
+            primary:
+              main: "#32329f"
         generateCodeSamples:
           languages:
             - lang: curl
@@ -18,6 +18,7 @@ apis:
             - lang: PHP
             - lang: Python
 
+# The rest of your file remains the same
 extends:
   - recommended
 
