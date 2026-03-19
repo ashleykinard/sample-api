@@ -2,22 +2,25 @@
 apis:
   sample@v1:
     root: openapi/openapi.yml
+    # Theme settings must be nested under the specific API or defined globally
+    # under 'theme' if using the correct top-level structure.
+    theme:
+      openapi:
+        htmlTemplate: ./docs/index.html
+        colors:
+          primary:
+            main: "#32329f"
+        generateCodeSamples:
+          languages:
+            - lang: curl
+            - lang: Node.js
+            - lang: JavaScript
+            - lang: PHP
+            - lang: Python
+
 extends:
   - recommended
+
 rules:
   no-unused-components: error
   no-server-example.com: off
-theme:
-  openapi:
-    htmlTemplate: ./docs/index.html
-    theme:
-      colors:
-        primary:
-          main: "#32329f"
-    generateCodeSamples:
-      languages:  # Array of language config objects; indicates in which languages to generate code samples.
-        - lang: curl
-        - lang: Node.js
-        - lang: JavaScript
-        - lang: PHP
-        - lang: Python
